@@ -381,7 +381,7 @@ function main_loop()
 	local now = os.time()
 	
 	-- don't do actions too close together to give the server time to respond
-	if now - global_cooldown < .5 then
+	if now - global_cooldown < 1 then
 		return
 	end
 	
