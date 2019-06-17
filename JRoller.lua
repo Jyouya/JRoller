@@ -240,7 +240,7 @@ function do_next()
 	-- if next action is off cd, then do it
 	local cd = windower.ffxi.get_ability_recasts()[rollQ:peek().id]
 	if cd == 0 then
-		windower.chat.input('/ja %s <me>':format(rollQ:peek().en))
+		windower.chat.input('/ja "%s" <me>':format(rollQ:peek().en))
 		pending = true
 		timeout = os.time()
 	elseif roll_window and os.time() + cd > roll_window then
