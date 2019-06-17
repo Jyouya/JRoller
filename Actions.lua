@@ -145,7 +145,7 @@ return {
 		unlucky=9,
 	},
 	['Puppet Roll']={
-		en='Puppet\'s Roll',
+		en='Puppet Roll',
 		id=193,
 		param=115,
 		lucky=3,

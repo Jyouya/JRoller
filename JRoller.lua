@@ -14,7 +14,14 @@ config = require('config')
 actions = T(require('Actions'))
 shortcuts = T(require('FuzzyNames'))
 
-settings = config.load()
+defaults = {
+	x=1200,
+	y=800,
+	roll1='Chaos Roll',
+	roll2='Samurai Roll',
+	language='en',
+}
+settings = config.load(defaults)
 
 enabled = false
 rollQ = Q{}
@@ -43,7 +50,7 @@ rolls = {
 	'Drachen Roll',
 	'Magus\'s Roll',
 	'Corsair\'s Roll',
-	'Puppet\'s Roll',
+	'Puppet Roll',
 	'Dancer\'s Roll',
 	'Scholar\'s Roll',
 	'Bolter\'s Roll',
@@ -74,7 +81,7 @@ rolls = {
 	'Drachen Roll',
 	'Magus\'s Roll',
 	'Corsair\'s Roll',
-	'Puppet\'s Roll',
+	'Puppet Roll',
 	'Dancer\'s Roll',
 	'Scholar\'s Roll',
 	'Bolter\'s Roll',
@@ -240,12 +247,15 @@ function do_next()
 	-- if next action is off cd, then do it
 	local cd = windower.ffxi.get_ability_recasts()[rollQ:peek().id]
 	if cd == 0 then
-		windower.chat.input('/ja "%s" <me>':format(rollQ:peek().en))
+		windower.chat.input('/ja "%s" <me>':format(rollQ:peek()[settings.language]))
 		pending = true
 		timeout = os.time()
 	elseif roll_window and os.time() + cd > roll_window then
 	-- if something happens and we can't do what we want, re-evaluate
 		--print('Clearing Queue do_next')
+		rollQ = Q{}
+		roll_strategy()
+	elseif not roll_window and cd > 10 then-- prevent things getting stuck in queue
 		rollQ = Q{}
 		roll_strategy()
 	end
@@ -499,6 +509,16 @@ Cities = S{
 	"Mog Garden",
 	"Leafallia"
 }
+
+function translate()
+	for k, v in pairs(actions) do
+		if type(v) ~= 'function' then
+			v.ja = table.with(res.job_abilities,'en',k).ja
+		end
+	end
+end
+
+translate()
 
 build_GUI()
 

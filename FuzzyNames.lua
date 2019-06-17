@@ -15,7 +15,7 @@ return {
 	['Drachen Roll']={'drach','pet ac','drg'},
 	['Magus\'s Roll']={'magus','mdb','magic d','blu'},
 	['Corsair\'s Roll']={'cor','exp'},
-	['Puppet\'s Roll']={'pup', 'pet m'},
+	['Puppet Roll']={'pup', 'pet m'},
 	['Dancer\'s Roll']={'dance','regen','dnc'},
 	['Scholar\'s Roll']={'sch','conserve m'},
 	['Bolter\'s Roll']={'bolt','move','flee','speed'},
